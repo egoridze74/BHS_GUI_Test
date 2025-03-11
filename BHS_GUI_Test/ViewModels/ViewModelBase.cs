@@ -1,7 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using ReactiveUI;
 
-namespace BHS_GUI_Test.ViewModels;
+namespace BHS_GUI_TEST.ViewModels;
 
-public abstract class ViewModelBase : ObservableObject
+public class ViewModelBase : ReactiveObject
 {
 }

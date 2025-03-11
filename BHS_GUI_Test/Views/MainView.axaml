@@ -2,15 +2,83 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:BHS_GUI_Test.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BHS_GUI_Test.Views.MainView"
-             x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
+             xmlns:vm="clr-namespace:BHS_GUI_TEST.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="420"
+             x:Class="BHS_GUI_TEST.Views.MainView"
+			 x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
+		<vm:MainViewModel />
+	</Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="250"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Margin="10">
+			<!-- ToggleSwitch для переключения между прямоугольником и кругом -->
+			<ToggleSwitch Content="Rectangle" IsChecked="{Binding IsRectangle}" Command="{Binding SwitchShapeCommand}"/>
+
+			<!-- Цвет фигуры -->
+			<TextBlock Text="Shape Color:" Margin="0,10,0,0"/>
+			<ColorPicker Color="{Binding CurrentShape.Color}"/>
+
+			<!-- Текст на фигуре -->
+			<TextBlock Text="Text on Shape:" Margin="0,10,0,0"/>
+			<TextBox Text="{Binding CurrentShape.Text}"/>
+
+			<!-- Цвет текста -->
+			<TextBlock Text="Text Color:" Margin="0,10,0,0"/>
+			<ColorPicker Color="{Binding CurrentShape.TextColor}"/>
+
+			<!-- Параметры для прямоугольника -->
+			<StackPanel IsVisible="{Binding IsRectangle}">
+				<TextBlock Text="Rectangle Width:" Margin="0,10,0,0"/>
+				<Slider Minimum="50" Maximum="300" Value="{Binding Rectangle.Width}"/>
+
+				<TextBlock Text="Rectangle Height:" Margin="0,10,0,0"/>
+				<Slider Minimum="50" Maximum="300" Value="{Binding Rectangle.Height}"/>
+
+				<TextBlock Text="Rectangle Rotation:" Margin="0,10,0,0"/>
+				<Slider Minimum="0" Maximum="360" Value="{Binding Rectangle.Rotation}"/>
+			</StackPanel>
+
+			<!-- Параметры для круга -->
+			<StackPanel IsVisible="{Binding !IsRectangle}">
+				<TextBlock Text="Circle Horizontal Compression:" Margin="0,10,0,0"/>
+				<Slider Minimum="50" Maximum="300" Value="{Binding Circle.Horizontal}"/>
+
+				<TextBlock Text="Circle Vertical Compression:" Margin="0,10,0,0"/>
+				<Slider Minimum="50" Maximum="300" Value="{Binding Circle.Vertical}"/>
+			</StackPanel>
+		</StackPanel>
+
+		<Grid Grid.Column="1" Background="White" Margin="10" HorizontalAlignment="Stretch">
+			<!-- Рендер фигуры -->
+			<Rectangle Width="{Binding Rectangle.Width}"
+					   Height="{Binding Rectangle.Height}"
+					   Fill="{Binding Rectangle.Brush}"
+					   IsVisible="{Binding IsRectangle}">
+				<Rectangle.RenderTransform>
+					<RotateTransform Angle="{Binding Rectangle.Rotation}"/>
+				</Rectangle.RenderTransform>
+			</Rectangle>
+
+			<Ellipse Width="{Binding Circle.Horizontal}"
+					 Height="{Binding Circle.Vertical}"
+					 Fill="{Binding Circle.Brush}"
+					 IsVisible="{Binding !IsRectangle}" />
+
+			<TextBlock Text="{Binding CurrentShape.Text}" Foreground="{Binding CurrentShape.TextColorBrush}"
+					   VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock.RenderTransform>
+					<RotateTransform Angle="{Binding CurrentShape.Rotation}"/>
+				</TextBlock.RenderTransform>
+			</TextBlock>
+		</Grid>
+	</Grid>
 </UserControl>
+

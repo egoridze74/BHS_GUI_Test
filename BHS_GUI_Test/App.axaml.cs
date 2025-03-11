@@ -4,10 +4,10 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using BHS_GUI_Test.ViewModels;
-using BHS_GUI_Test.Views;
+using BHS_GUI_TEST.ViewModels;
+using BHS_GUI_TEST.Views;
 
-namespace BHS_GUI_Test;
+namespace BHS_GUI_TEST;
 
 public partial class App : Application
 {

@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using BHS_GUI_Test.ViewModels;
+using BHS_GUI_TEST.ViewModels;
 
-namespace BHS_GUI_Test;
+namespace BHS_GUI_TEST;
 
 public class ViewLocator : IDataTemplate
 {
